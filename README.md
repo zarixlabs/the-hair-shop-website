@@ -1,6 +1,6 @@
 # 🌿 The Hair Shop — Premium Salon Website
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Online-brightgreen?style=for-the-badge&logo=github)](https://chaudharyzaid56-lang.github.io/the-hair-shop-website/)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Online-brightgreen?style=for-the-badge&logo=github)](https://zarixlabs.github.io/the-hair-shop-website/)
 [![Stack](https://img.shields.io/badge/Stack-HTML5%20%7C%20CSS3%20%7C%20JS%20%7C%20GSAP-blue?style=for-the-badge)](https://github.com/)
 
 A premium, modern, and high-converting single-page website built for **The Hair Shop** (located in Biloela, Queensland, Australia). 
@@ -10,7 +10,7 @@ Designed to deliver an elite client experience, this site transitions away from 
 ---
 
 ## 🔗 Live Showcase
-👉 **[View the Live Website Here](https://chaudharyzaid56-lang.github.io/the-hair-shop-website/)**
+👉 **[View the Live Website Here](https://zarixlabs.github.io/the-hair-shop-website/)**
 
 ---
 
@@ -83,6 +83,6 @@ npx live-server
 ---
 
 ## 📄 License & Credits
-*   **Author:** [chaudharyzaid56-lang](https://github.com/chaudharyzaid56-lang)
+*   **Author:** [zarixlabs](https://github.com/zarixlabs)
 *   **Photography:** Salon imagery assets generated via Adobe Firefly/Midjourney. Sinclair Oldfield interior photos used as design references.
 *   **Libraries:** GSAP Core + ScrollTrigger (Loaded via Cloudflare CDN).
