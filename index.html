@@ -1,0 +1,3232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Hair Shop – Premium Hair Salon | Biloela, QLD</title>
+  <meta name="description" content="The Hair Shop in Biloela, Queensland – Premium hair salon offering cuts, colour, styling, treatments and more. Rated 4.5★. Call +61 7 4992 3762 or book today." />
+  <meta name="keywords" content="hair salon biloela, hair shop biloela, haircut queensland, hair colour biloela, hair treatment, hairdresser biloela QLD" />
+  <meta property="og:title" content="The Hair Shop – Premium Hair Salon Biloela QLD" />
+  <meta property="og:description" content="Expert hair services in the heart of Biloela, Queensland. Cuts, colour, treatments & styling by passionate professionals." />
+  <meta property="og:type" content="website" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet" />
+
+  <!-- GSAP & ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    /* ===================== RESET & ROOT ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #274335;        /* Sage / Forest Green */
+      --primary-rgb: 39, 67, 53;
+      --primary-light: #3f6150;
+      --primary-dark: #14291f;
+      --bg: #fdfcfb;             /* Pure soft white/ivory */
+      --bg-sec: #f6f4f0;         /* Warm stone/beige */
+      --bg-card: #ffffff;        /* Pure white for cards */
+      --text-main: #1a1c19;      /* Warm charcoal black */
+      --text-muted: #5f635e;     /* Slate gray/green */
+      --border-color: rgba(39, 67, 53, 0.08);
+      --shadow-sm: 0 4px 15px rgba(26, 28, 25, 0.03);
+      --shadow-md: 0 10px 30px rgba(26, 28, 25, 0.05);
+      --shadow-lg: 0 20px 50px rgba(26, 28, 25, 0.1);
+      --radius: 12px;
+      --radius-lg: 20px;
+      --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+      /* Backward compatibility variables mapping old variables to new light theme elements */
+      --gold: var(--primary);
+      --gold-light: var(--primary-light);
+      --gold-dark: var(--primary-dark);
+      --cream: var(--bg-sec);
+      --off-white: var(--bg);
+      --black: var(--text-main);
+      --dark: var(--bg);
+      --dark-2: var(--bg-sec);
+      --dark-3: var(--bg-card);
+      --dark-4: var(--bg-sec);
+      --grey: var(--text-muted);
+      --light-grey: var(--text-muted);
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Outfit', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--dark);
+      color: var(--black);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    ::selection { background: var(--primary); color: #ffffff; }
+
+    /* ===================== SCROLLBAR ===================== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg-sec); }
+    ::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 3px; }
+
+    /* ===================== TYPOGRAPHY ===================== */
+    .serif { font-family: var(--font-serif); }
+    .gradient-text {
+      background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 50%, var(--primary-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(var(--primary-rgb), 0.08);
+      border: 1px solid rgba(var(--primary-rgb), 0.2);
+      color: var(--primary);
+      padding: 6px 18px;
+      border-radius: 50px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .section-badge::before {
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      margin-bottom: 20px;
+    }
+
+    .section-subtitle {
+      font-size: clamp(15px, 1.8vw, 17px);
+      color: var(--grey);
+      font-weight: 300;
+      max-width: 520px;
+      line-height: 1.8;
+    }
+
+    /* ===================== LAYOUT ===================== */
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 clamp(20px, 5vw, 80px);
+    }
+
+    section { position: relative; }
+
+    /* ===================== LOADER ===================== */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .loader-logo {
+      font-family: var(--font-serif);
+      font-size: 42px;
+      font-weight: 600;
+      letter-spacing: 8px;
+      color: var(--primary);
+      opacity: 0;
+    }
+
+    .loader-line {
+      width: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      transition: width 1.2s ease;
+    }
+
+    .loader-text {
+      font-size: 11px;
+      letter-spacing: 4px;
+      color: var(--grey);
+      text-transform: uppercase;
+      opacity: 0;
+    }
+
+    /* ===================== NAVBAR ===================== */
+    #navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 999;
+      padding: 22px 0;
+      transition: var(--transition);
+    }
+
+    #navbar.scrolled {
+      background: rgba(253, 252, 251, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(var(--primary-rgb), 0.08);
+      padding: 14px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      font-family: var(--font-serif);
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--primary);
+      letter-spacing: 3px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    .nav-logo span {
+      display: block;
+      font-size: 9px;
+      font-family: var(--font-sans);
+      letter-spacing: 4px;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-top: -2px;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-main);
+      text-decoration: none;
+      transition: color 0.3s;
+      font-weight: 600;
+    }
+
+    .nav-links a:hover { color: var(--primary); }
+
+    .nav-cta {
+      background: transparent;
+      border: 1px solid var(--primary);
+      color: var(--primary) !important;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 11px !important;
+      letter-spacing: 2px !important;
+      transition: var(--transition) !important;
+    }
+
+    .nav-cta:hover {
+      background: var(--primary) !important;
+      color: #ffffff !important;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 5px;
+      background: none;
+      border: none;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--primary);
+      transition: var(--transition);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(253, 252, 251, 0.98);
+      backdrop-filter: blur(20px);
+      z-index: 998;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 40px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+    }
+
+    .mobile-menu.open { opacity: 1; pointer-events: all; display: flex; }
+
+    .mobile-menu a {
+      font-family: var(--font-serif);
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--text-main);
+      text-decoration: none;
+      letter-spacing: 2px;
+      transition: color 0.3s;
+    }
+
+    .mobile-menu a:hover { color: var(--primary); }
+
+    /* ===================== HERO ===================== */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transform: scale(1.05);
+      transition: transform 8s ease;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(253, 252, 251, 0.92) 0%,
+        rgba(253, 252, 251, 0.8) 50%,
+        rgba(253, 252, 251, 0.65) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .hero-stars {
+      display: flex;
+      gap: 3px;
+    }
+
+    .hero-stars span {
+      color: var(--gold);
+      font-size: 14px;
+    }
+
+    .hero-rating-text {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+    }
+
+    .hero-dot {
+      width: 4px;
+      height: 4px;
+      background: var(--gold);
+      border-radius: 50%;
+    }
+
+    .hero-location {
+      font-size: 12px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(52px, 8vw, 110px);
+      font-weight: 600;
+      line-height: 0.95;
+      letter-spacing: -2px;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--gold-light);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(15px, 1.8vw, 18px);
+      color: var(--text-muted);
+      font-weight: 400;
+      line-height: 1.8;
+      max-width: 500px;
+      margin-bottom: 44px;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--gold);
+      color: #ffffff;
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-100%);
+      transition: transform 0.5s ease;
+    }
+
+    .btn-primary:hover::before { transform: translateX(0); }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(var(--primary-rgb), 0.25);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      color: var(--text-main);
+      padding: 16px 36px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid rgba(var(--primary-rgb), 0.25);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+    }
+
+    .scroll-text {
+      font-size: 10px;
+      letter-spacing: 3px;
+      color: var(--grey);
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      transform: rotate(180deg);
+      display: none;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 50px;
+      background: linear-gradient(to bottom, var(--gold), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; transform: scaleY(0.8); }
+      50% { opacity: 1; transform: scaleY(1); }
+    }
+
+    /* Floating orbs */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(var(--primary-rgb), 0.08) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      animation: orbFloat 8s ease-in-out infinite;
+    }
+
+    .orb-2 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(var(--primary-rgb), 0.06) 0%, transparent 70%);
+      bottom: 100px; left: 200px;
+      animation: orbFloat 10s ease-in-out infinite reverse;
+    }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0); }
+      33% { transform: translate(20px, -20px); }
+      66% { transform: translate(-15px, 15px); }
+    }
+
+    /* ===================== ABOUT ===================== */
+    #about {
+      padding: 120px 0;
+      background: var(--dark);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-images {
+      position: relative;
+      height: 620px;
+    }
+
+    .about-img-main {
+      position: absolute;
+      top: 0; left: 0;
+      width: 75%;
+      height: 80%;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .about-img-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .about-img-main:hover img { transform: scale(1.05); }
+
+    .about-img-secondary {
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 55%;
+      height: 55%;
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 4px solid var(--dark);
+    }
+
+    .about-img-secondary img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .about-badge-floating {
+      position: absolute;
+      top: 50%;
+      left: -30px;
+      transform: translateY(-50%);
+      background: var(--gold);
+      color: #ffffff;
+      padding: 20px 24px;
+      border-radius: var(--radius);
+      text-align: center;
+      z-index: 2;
+      box-shadow: 0 15px 40px rgba(var(--primary-rgb), 0.25);
+    }
+
+    .about-badge-floating .number {
+      font-family: var(--font-serif);
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1;
+      display: block;
+    }
+
+    .about-badge-floating .label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .about-content { }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .stat-item {
+      padding: 24px;
+      background: var(--dark-3);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      text-align: center;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-item:hover {
+      border-color: rgba(var(--primary-rgb), 0.3);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .stat-number {
+      font-family: var(--font-serif);
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: var(--grey);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--gold), transparent);
+      margin: 24px 0;
+    }
+
+    /* ===================== SERVICES ===================== */
+    #services {
+      padding: 120px 0;
+      background: var(--dark-2);
+    }
+
+    .services-header { text-align: center; margin-bottom: 70px; }
+
+    .services-header .section-subtitle { margin: 0 auto; }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .service-card {
+      background: var(--dark-3);
+      border: 1px solid rgba(var(--primary-rgb), 0.08);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      group: true;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.04) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .service-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-dark));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s ease;
+    }
+
+    .service-card:hover::before { opacity: 1; }
+    .service-card:hover::after { transform: scaleX(1); }
+
+    .service-card:hover {
+      border-color: rgba(var(--primary-rgb), 0.2);
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .service-icon {
+      width: 60px;
+      height: 60px;
+      background: rgba(var(--primary-rgb), 0.06);
+      border: 1px solid rgba(var(--primary-rgb), 0.15);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 24px;
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-icon {
+      background: rgba(var(--primary-rgb), 0.12);
+      border-color: var(--gold);
+      transform: scale(1.1) rotate(-5deg);
+    }
+
+    .service-name {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .service-desc {
+      font-size: 14px;
+      color: var(--grey);
+      line-height: 1.7;
+    }
+
+    .service-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--gold);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 500;
+      opacity: 0;
+      transform: translateX(-10px);
+      transition: var(--transition);
+    }
+
+    .service-card:hover .service-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ===================== SIGNATURE ===================== */
+    #signature {
+      padding: 120px 0;
+      background: var(--dark);
+    }
+
+    .signature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .signature-image {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      height: 600px;
+    }
+
+    .signature-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 8s ease;
+    }
+
+    .signature-image:hover img { transform: scale(1.05); }
+
+    .signature-image-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26,28,25,0.6) 0%, transparent 50%);
+    }
+
+    .signature-tag {
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+      background: rgba(253,252,251,0.92);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(var(--primary-rgb), 0.2);
+      padding: 16px 24px;
+      border-radius: 12px;
+    }
+
+    .signature-tag p {
+      font-size: 12px;
+      color: var(--primary);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .signature-tag h4 {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      margin-top: 4px;
+      color: var(--text-main);
+    }
+
+    .features-list {
+      margin-top: 36px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: var(--dark-3);
+      border-radius: 12px;
+      border: 1px solid rgba(var(--primary-rgb), 0.06);
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .feature-item:hover {
+      border-color: rgba(var(--primary-rgb), 0.2);
+      transform: translateX(6px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .feature-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+    }
+
+    .feature-text h4 {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 4px;
+      color: var(--text-main);
+    }
+
+    .feature-text p {
+      font-size: 13px;
+      color: var(--grey);
+      line-height: 1.6;
+    }
+
+    /* ===================== GALLERY ===================== */
+    #gallery {
+      padding: 120px 0;
+      background: var(--dark-2);
+    }
+
+    .gallery-header { text-align: center; margin-bottom: 60px; }
+
+    .gallery-filter {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: 1px solid rgba(var(--primary-rgb), 0.15);
+      color: var(--grey);
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: var(--transition);
+      font-family: var(--font-sans);
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #ffffff;
+    }
+
+    .gallery-masonry {
+      columns: 3;
+      column-gap: 20px;
+    }
+
+    .gallery-item {
+      break-inside: avoid;
+      margin-bottom: 20px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+
+    .gallery-item:hover img { transform: scale(1.05); }
+
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(var(--primary-rgb), 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    .gallery-overlay-icon {
+      width: 50px;
+      height: 50px;
+      background: #ffffff;
+      color: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transform: scale(0.5);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .gallery-item:hover .gallery-overlay-icon { transform: scale(1); }
+
+    /* Lightbox */
+    #lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      background: rgba(26, 28, 25, 0.96);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s;
+    }
+
+    #lightbox.open { opacity: 1; pointer-events: all; }
+
+    #lightbox img {
+      max-width: 90vw;
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
+      transform: scale(0.9);
+      transition: transform 0.4s;
+    }
+
+    #lightbox.open img { transform: scale(1); }
+
+    #lightbox-close {
+      position: absolute;
+      top: 24px;
+      right: 32px;
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 28px;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    #lightbox-close:hover { color: var(--primary-light); }
+
+    /* ===================== REVIEWS ===================== */
+    #reviews {
+      padding: 120px 0;
+      background: var(--dark);
+    }
+
+    .reviews-header { text-align: center; margin-bottom: 70px; }
+
+    .rating-showcase {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .rating-big {
+      font-family: var(--font-serif);
+      font-size: 80px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+
+    .rating-info {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .stars-big {
+      display: flex;
+      gap: 4px;
+    }
+
+    .stars-big span { font-size: 22px; color: var(--gold); }
+
+    .reviews-count {
+      font-size: 13px;
+      color: var(--grey);
+      letter-spacing: 1px;
+    }
+
+    .reviews-carousel {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .reviews-track {
+      display: flex;
+      gap: 24px;
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .review-card {
+      flex-shrink: 0;
+      width: calc(33.333% - 16px);
+      background: var(--dark-3);
+      border: 1px solid rgba(var(--primary-rgb), 0.06);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .review-card:hover {
+      border-color: rgba(var(--primary-rgb), 0.2);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .review-stars {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 20px;
+    }
+
+    .review-stars span { color: var(--gold); font-size: 15px; }
+
+    .review-text {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-main);
+      font-style: italic;
+      font-family: var(--font-serif);
+      font-weight: 400;
+      margin-bottom: 24px;
+    }
+
+    .reviewer {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .reviewer-avatar {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-serif);
+      font-size: 18px;
+      font-weight: 600;
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .reviewer-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    .reviewer-date {
+      font-size: 12px;
+      color: var(--grey);
+      margin-top: 2px;
+    }
+
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 48px;
+    }
+
+    .carousel-btn {
+      width: 48px;
+      height: 48px;
+      background: transparent;
+      border: 1px solid rgba(var(--primary-rgb), 0.3);
+      border-radius: 50%;
+      color: var(--primary);
+      font-size: 18px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .carousel-btn:hover {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    /* ===================== TEAM ===================== */
+    #team {
+      padding: 120px 0;
+      background: var(--dark-2);
+    }
+
+    .team-header { text-align: center; margin-bottom: 70px; }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+
+    .team-card {
+      text-align: center;
+      background: var(--dark-3);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid rgba(var(--primary-rgb), 0.06);
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .team-card:hover {
+      border-color: rgba(var(--primary-rgb), 0.25);
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .team-image {
+      position: relative;
+      height: 360px;
+      overflow: hidden;
+    }
+
+    .team-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 0.6s ease;
+    }
+
+    .team-card:hover .team-image img { transform: scale(1.07); }
+
+    .team-image-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(26, 28, 25, 0.5) 0%, transparent 60%);
+    }
+
+    .team-info {
+      padding: 28px 24px;
+    }
+
+    .team-name {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-main);
+    }
+
+    .team-role {
+      font-size: 12px;
+      color: var(--primary);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .team-bio {
+      font-size: 13px;
+      color: var(--grey);
+      line-height: 1.7;
+    }
+
+    .team-social {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .team-social a {
+      width: 34px;
+      height: 34px;
+      border: 1px solid rgba(var(--primary-rgb), 0.15);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 13px;
+      transition: var(--transition);
+    }
+
+    .team-social a:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    /* ===================== WHY CHOOSE US ===================== */
+    #why-us {
+      padding: 120px 0;
+      background: var(--dark);
+    }
+
+    .why-header { text-align: center; margin-bottom: 70px; }
+
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .why-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(var(--primary-rgb), 0.06);
+      border-radius: var(--radius-lg);
+      padding: 44px 36px;
+      text-align: center;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .why-card::before {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(var(--primary-rgb), 0.08) 0%, transparent 70%);
+      top: -60px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+
+    .why-card:hover::before { opacity: 1; }
+
+    .why-card:hover {
+      border-color: rgba(var(--primary-rgb), 0.2);
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .why-icon {
+      font-size: 44px;
+      margin-bottom: 24px;
+      display: block;
+    }
+
+    .why-title {
+      font-family: var(--font-serif);
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 14px;
+      color: var(--text-main);
+    }
+
+    .why-desc {
+      font-size: 14px;
+      color: var(--grey);
+      line-height: 1.8;
+    }
+
+    /* ===================== BOOKING ===================== */
+    #booking {
+      padding: 120px 0;
+      background: var(--dark-2);
+    }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .booking-info { }
+
+    .booking-contacts {
+      margin-top: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      background: var(--dark-3);
+      border: 1px solid rgba(var(--primary-rgb), 0.06);
+      border-radius: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .contact-item:hover {
+      border-color: rgba(var(--primary-rgb), 0.25);
+      transform: translateX(6px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .contact-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(var(--primary-rgb), 0.06);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      color: var(--primary);
+    }
+
+    .contact-label {
+      font-size: 11px;
+      color: var(--grey);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .contact-value {
+      font-size: 15px;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .booking-form {
+      background: var(--dark-3);
+      border: 1px solid rgba(var(--primary-rgb), 0.08);
+      border-radius: var(--radius-lg);
+      padding: 48px 44px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .form-title {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-main);
+    }
+
+    .form-subtitle {
+      font-size: 13px;
+      color: var(--grey);
+      margin-bottom: 32px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--grey);
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(var(--primary-rgb), 0.03);
+      border: 1px solid rgba(var(--primary-rgb), 0.12);
+      border-radius: 10px;
+      padding: 14px 18px;
+      font-size: 14px;
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      transition: var(--transition);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .form-group select option { background: var(--dark-3); color: var(--text-main); }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--gold);
+      background: rgba(var(--primary-rgb), 0.03);
+      box-shadow: 0 0 0 3px rgba(var(--primary-rgb), 0.08);
+    }
+
+    .form-group textarea { resize: none; height: 100px; }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-submit {
+      width: 100%;
+      margin-top: 8px;
+    }
+
+    /* ===================== LOCATION ===================== */
+    #location {
+      padding: 120px 0;
+      background: var(--dark);
+    }
+
+    .location-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .location-info { }
+
+    .hours-table {
+      margin-top: 32px;
+      background: var(--dark-3);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(var(--primary-rgb), 0.08);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 24px;
+      border-bottom: 1px solid rgba(var(--primary-rgb), 0.05);
+      transition: background 0.2s;
+    }
+
+    .hours-row:last-child { border-bottom: none; }
+    .hours-row:hover { background: rgba(var(--primary-rgb), 0.03); }
+    .hours-row.today { background: rgba(var(--primary-rgb), 0.08); }
+    .hours-row.today .day { color: var(--gold); }
+
+    .day {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      color: var(--text-main);
+    }
+
+    .time {
+      font-size: 13px;
+      color: var(--grey);
+    }
+
+    .time.open { color: #2e7d32; font-weight: 500; }
+    .time.closed { color: #c62828; font-weight: 500; }
+
+    .map-container {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      height: 480px;
+      border: 1px solid rgba(var(--primary-rgb), 0.08);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ===================== FAQ ===================== */
+    #faq {
+      padding: 120px 0;
+      background: var(--dark-2);
+    }
+
+    .faq-header { text-align: center; margin-bottom: 70px; }
+
+    .faq-list {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .faq-item {
+      background: var(--dark-3);
+      border: 1px solid rgba(var(--primary-rgb), 0.06);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.3s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .faq-item.open { border-color: rgba(var(--primary-rgb), 0.25); }
+
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 24px 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      color: var(--text-main);
+      font-size: 16px;
+      font-weight: 500;
+      text-align: left;
+      gap: 16px;
+    }
+
+    .faq-icon {
+      width: 28px;
+      height: 28px;
+      background: rgba(var(--primary-rgb), 0.06);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 14px;
+      color: var(--primary);
+      transition: transform 0.4s ease;
+    }
+
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .faq-answer-inner {
+      padding: 0 28px 24px;
+      font-size: 14px;
+      color: var(--grey);
+      line-height: 1.8;
+      border-top: 1px solid rgba(var(--primary-rgb), 0.05);
+      padding-top: 16px;
+    }
+
+    /* ===================== CTA ===================== */
+    #cta {
+      padding: 140px 0;
+      background: var(--dark);
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .cta-bg {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(var(--primary-rgb), 0.08) 0%, transparent 70%);
+    }
+
+    .cta-content { position: relative; z-index: 1; }
+
+    .cta-title {
+      font-family: var(--font-serif);
+      font-size: clamp(44px, 6vw, 84px);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -1px;
+      margin-bottom: 24px;
+      color: var(--text-main);
+    }
+
+    .cta-subtitle {
+      font-size: 17px;
+      color: var(--grey);
+      max-width: 500px;
+      margin: 0 auto 48px;
+      line-height: 1.8;
+    }
+
+    .cta-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ===================== FOOTER ===================== */
+    #footer {
+      background: #1a1c19;
+      border-top: 1px solid rgba(255,255,255,0.03);
+      padding: 80px 0 40px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+
+    .footer-brand { }
+
+    .footer-logo {
+      font-family: var(--font-serif);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--primary-light);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .footer-logo-sub {
+      font-size: 9px;
+      color: var(--grey);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .footer-desc {
+      font-size: 13px;
+      color: var(--grey);
+      line-height: 1.8;
+      max-width: 280px;
+      margin-bottom: 24px;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+
+    .footer-social a {
+      width: 38px;
+      height: 38px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--grey);
+      text-decoration: none;
+      font-size: 15px;
+      transition: var(--transition);
+    }
+
+    .footer-social a:hover {
+      background: rgba(var(--primary-rgb), 0.2);
+      border-color: var(--primary-light);
+      color: var(--primary-light);
+    }
+
+    .footer-heading {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--primary-light);
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--grey);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover { color: var(--primary-light); }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.03);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--grey);
+    }
+
+    .footer-copy span { color: var(--primary-light); }
+
+    /* ===================== PARTICLES ===================== */
+    #particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===================== SCROLL PROGRESS ===================== */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-dark), var(--primary), var(--primary-light));
+      z-index: 9998;
+      transform-origin: left;
+      transform: scaleX(0);
+    }
+
+    /* ===================== BACK TO TOP ===================== */
+    #back-top {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      width: 48px;
+      height: 48px;
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      border-radius: 50%;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: var(--transition);
+      z-index: 500;
+    }
+
+    #back-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #back-top:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(var(--primary-rgb), 0.3);
+    }
+
+    /* ===================== REVEAL ANIMATIONS ===================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .reveal-left {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+
+    .reveal-right {
+      opacity: 0;
+      transform: translateX(40px);
+    }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 1024px) {
+      .about-grid { grid-template-columns: 1fr; gap: 48px; }
+      .about-images { height: 400px; }
+      .about-badge-floating { left: 20px; }
+      .signature-grid { grid-template-columns: 1fr; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .why-grid { grid-template-columns: repeat(2, 1fr); }
+      .booking-grid { grid-template-columns: 1fr; }
+      .location-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-masonry { columns: 2; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .about-stats { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+      .team-grid { grid-template-columns: 1fr; }
+      .why-grid { grid-template-columns: 1fr; }
+      .gallery-masonry { columns: 1; }
+      .review-card { width: calc(100% - 0px); }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .booking-form { padding: 32px 24px; }
+      .about-badge-floating { display: none; }
+    }
+
+    @media (max-width: 480px) {
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .hero-buttons { flex-direction: column; }
+      .hero-buttons a, .hero-buttons button { text-align: center; justify-content: center; }
+    }
+
+    /* ===================== WHATSAPP FLOAT ===================== */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 32px;
+      left: 32px;
+      width: 54px;
+      height: 54px;
+      background: #25d366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 500;
+      box-shadow: 0 8px 30px rgba(37,211,102,0.4);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .whatsapp-float:hover {
+      transform: scale(1.1) translateY(-4px);
+      box-shadow: 0 14px 50px rgba(37,211,102,0.5);
+    }
+
+    .whatsapp-float svg {
+      width: 28px;
+      height: 28px;
+      fill: white;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- SCROLL PROGRESS -->
+  <div id="scroll-progress"></div>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-logo">THS</div>
+    <div class="loader-line" id="loader-line"></div>
+    <div class="loader-text">The Hair Shop · Biloela</div>
+  </div>
+
+  <!-- PARTICLES CANVAS -->
+  <canvas id="particles"></canvas>
+
+  <!-- NAVBAR -->
+  <nav id="navbar" aria-label="Main navigation">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#hero" class="nav-logo" id="nav-logo">
+          The Hair Shop
+          <span>Biloela · Queensland</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#location">Location</a></li>
+          <li><a href="#booking" class="nav-cta">Book Now</a></li>
+        </ul>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu" role="dialog" aria-label="Mobile navigation">
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#services" class="mobile-link">Services</a>
+    <a href="#gallery" class="mobile-link">Gallery</a>
+    <a href="#reviews" class="mobile-link">Reviews</a>
+    <a href="#team" class="mobile-link">Team</a>
+    <a href="#booking" class="mobile-link">Book Now</a>
+    <a href="tel:+61749923762" class="mobile-link" style="color:var(--gold)">Call Us</a>
+  </div>
+
+  <!-- ===================== HERO ===================== -->
+  <section id="hero" aria-label="Hero section">
+    <div class="hero-bg">
+      <img src="hero.png" alt="The Hair Shop premium salon interior" id="hero-img" loading="eager" />
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge" id="hero-badge">
+          <div class="hero-stars">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          </div>
+          <div class="hero-rating-text">4.5 / 5 · 10 Reviews</div>
+          <div class="hero-dot"></div>
+          <div class="hero-location">Biloela, QLD</div>
+        </div>
+
+        <h1 class="hero-title" id="hero-title">
+          Where Every<br /><em>Strand</em> Tells<br />a Story
+        </h1>
+
+        <p class="hero-subtitle" id="hero-subtitle">
+          Premium hair artistry in the heart of Biloela. Expert stylists dedicated to transforming your look with precision, passion and professional care.
+        </p>
+
+        <div class="hero-buttons" id="hero-buttons">
+          <a href="#booking" class="btn-primary" id="hero-book-btn">
+            ✦ &nbsp;Book Appointment
+          </a>
+          <a href="tel:+61749923762" class="btn-outline" id="hero-call-btn">
+            📞 &nbsp;Call +61 7 4992 3762
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-scroll-indicator" id="scroll-indicator">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about" aria-label="About The Hair Shop">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-images reveal-left">
+          <div class="about-img-main">
+            <img src="waiting.png" alt="The Hair Shop modern interior" loading="lazy" />
+          </div>
+          <div class="about-img-secondary">
+            <img src="products.png" alt="Premium hair care products at The Hair Shop" loading="lazy" />
+          </div>
+          <div class="about-badge-floating">
+            <span class="number">4.5</span>
+            <span class="label">★ Rating</span>
+          </div>
+        </div>
+
+        <div class="about-content reveal-right">
+          <div class="section-badge">Our Story</div>
+          <h2 class="section-title">A Passion for <em style="font-style:italic;color:var(--gold-light)">Beautiful Hair</em></h2>
+          <div class="divider"></div>
+          <p class="section-subtitle" style="max-width:100%">
+            Nestled at Shop 1/12 Melton Street, Biloela, The Hair Shop is your local destination for world-class hair services. We believe that a great haircut is more than just a service — it's an experience that leaves you feeling confident, refreshed, and truly yourself.
+          </p>
+          <br />
+          <p style="font-size:14px;color:var(--grey);line-height:1.9;">
+            Our team of passionate stylists bring years of experience, ongoing education and a genuine love for their craft to every appointment. From precision cuts to creative colour, we use only the finest professional-grade products to ensure results that exceed your expectations every single time.
+          </p>
+
+          <div class="about-stats">
+            <div class="stat-item">
+              <span class="stat-number counter" data-target="10">0</span>
+              <span class="stat-label">5★ Reviews</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number counter" data-target="100">0</span>
+              <span class="stat-label">Happy Clients</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-number counter" data-target="8" data-suffix="+">0</span>
+              <span class="stat-label">Services</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SERVICES ===================== -->
+  <section id="services" aria-label="Our Services">
+    <div class="container">
+      <div class="services-header reveal">
+        <div class="section-badge">What We Offer</div>
+        <h2 class="section-title">Premium <em style="font-style:italic;color:var(--gold-light)">Services</em></h2>
+        <p class="section-subtitle">From precision cuts to vibrant colour transformations — we offer a full spectrum of expert hair services tailored to you.</p>
+      </div>
+
+      <div class="services-grid">
+
+        <div class="service-card reveal" style="--delay:0.1s">
+          <div class="service-icon">✂️</div>
+          <h3 class="service-name">Haircut & Styling</h3>
+          <p class="service-desc">Precision cuts tailored to your face shape, lifestyle and personality. From classic bobs to contemporary layers — we craft the cut you've always wanted.</p>
+          <div class="service-arrow">Explore →</div>
+        </div>
+
+        <div class="service-card reveal" style="--delay:0.15s">
+          <div class="service-icon">🎨</div>
+          <h3 class="service-name">Hair Colour</h3>
+          <p class="service-desc">Rich, long-lasting colour from full tints to stunning balayage and highlights. We use professional-grade colour products for vibrant, healthy-looking results.</p>
+          <div class="service-arrow">Explore →</div>
+        </div>
+
+        <div class="service-card reveal" style="--delay:0.2s">
+          <div class="service-icon">✨</div>
+          <h3 class="service-name">Balayage & Highlights</h3>
+          <p class="service-desc">Sun-kissed balayage, foils and creative highlights expertly blended for a natural, dimensional look that grows out beautifully.</p>
+          <div class="service-arrow">Explore →</div>
+        </div>
+
+        <div class="service-card reveal" style="--delay:0.25s">
+          <div class="service-icon">💆</div>
+          <h3 class="service-name">Hair Treatments</h3>
+          <p class="service-desc">Restorative treatments to nourish, strengthen and revive your hair. Including deep conditioning, Olaplex and intensive repair masks for all hair types.</p>
+          <div class="service-arrow">Explore →</div>
+        </div>
+
+        <div class="service-card reveal" style="--delay:0.3s">
+          <div class="service-icon">🌊</div>
+          <h3 class="service-name">Perms & Waves</h3>
+          <p class="service-desc">From loose beach waves to defined curls — our stylists create beautiful, long-lasting texture that suits your natural hair type and lifestyle.</p>
+          <div class="service-arrow">Explore →</div>
+        </div>
+
+        <div class="service-card reveal" style="--delay:0.35s">
+          <div class="service-icon">👰</div>
+          <h3 class="service-name">Bridal & Event Styling</h3>
+          <p class="service-desc">Look stunning on your most special day. We offer bridal updos, formal blowouts and event styling that lasts from ceremony to celebration.</p>
+          <div class="service-arrow">Explore →</div>
+        </div>
+
+        <div class="service-card reveal" style="--delay:0.4s">
+          <div class="service-icon">🌿</div>
+          <h3 class="service-name">Scalp Care</h3>
+          <p class="service-desc">Targeted scalp treatments to restore balance, reduce dryness and promote healthy hair growth. Your scalp health is the foundation of beautiful hair.</p>
+          <div class="service-arrow">Explore →</div>
+        </div>
+
+        <div class="service-card reveal" style="--delay:0.45s">
+          <div class="service-icon">💅</div>
+          <h3 class="service-name">Kids' Cuts</h3>
+          <p class="service-desc">A friendly, gentle experience for your little ones. We make haircuts fun and comfortable for children of all ages in a relaxed salon atmosphere.</p>
+          <div class="service-arrow">Explore →</div>
+        </div>
+
+        <div class="service-card reveal" style="--delay:0.5s">
+          <div class="service-icon">🫧</div>
+          <h3 class="service-name">Blow Dry & Finish</h3>
+          <p class="service-desc">Salon-quality blowouts that add volume, shine and smoothness. Perfect for special occasions or simply treating yourself to a fresh, polished look.</p>
+          <div class="service-arrow">Explore →</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SIGNATURE SERVICE ===================== -->
+  <section id="signature" aria-label="Signature Services">
+    <div class="container">
+      <div class="signature-grid">
+        <div class="signature-image reveal-left">
+          <img src="model.png" alt="Stunning curly hair styling at The Hair Shop" loading="lazy" />
+          <div class="signature-image-overlay"></div>
+          <div class="signature-tag">
+            <p>Signature Service</p>
+            <h4>Curly Hair Expertise</h4>
+          </div>
+        </div>
+
+        <div class="reveal-right" style="padding: 40px 0;">
+          <div class="section-badge">Most Loved</div>
+          <h2 class="section-title">Our Signature <em style="font-style:italic;color:var(--gold-light)">Specialties</em></h2>
+          <div class="divider"></div>
+          <p class="section-subtitle" style="max-width:100%;margin-bottom:20px;">
+            These are the services our clients rave about most — transformations that speak for themselves and keep clients coming back again and again.
+          </p>
+
+          <div class="features-list">
+            <div class="feature-item">
+              <div class="feature-icon">🌀</div>
+              <div class="feature-text">
+                <h4>Curly Hair Specialist</h4>
+                <p>Expert cut-and-style techniques specifically designed for wavy, curly and coily hair types. We understand curl pattern, porosity and moisture balance.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">🎨</div>
+              <div class="feature-text">
+                <h4>Creative Colour Transformations</h4>
+                <p>From natural root touch-ups to bold colour changes — our colourists blend artistry and precision to deliver stunning, long-lasting results.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">✨</div>
+              <div class="feature-text">
+                <h4>Premium Product Range</h4>
+                <p>We stock a curated range of professional hair care products available for purchase — so you can maintain your salon look at home.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">💬</div>
+              <div class="feature-text">
+                <h4>Personalised Consultations</h4>
+                <p>Every appointment begins with a thorough consultation — we listen, advise and tailor every service to your unique hair goals and lifestyle.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== GALLERY ===================== -->
+  <section id="gallery" aria-label="Photo Gallery">
+    <div class="container">
+      <div class="gallery-header reveal">
+        <div class="section-badge">Our Work</div>
+        <h2 class="section-title">The <em style="font-style:italic;color:var(--gold-light)">Gallery</em></h2>
+        <p class="section-subtitle" style="margin:0 auto;">A glimpse into the artistry and ambiance that defines The Hair Shop experience.</p>
+      </div>
+
+      <div class="gallery-filter reveal">
+        <button class="filter-btn active" data-filter="all">All Work</button>
+        <button class="filter-btn" data-filter="interior">Interior</button>
+        <button class="filter-btn" data-filter="colour">Colour</button>
+        <button class="filter-btn" data-filter="styling">Styling</button>
+      </div>
+
+      <div class="gallery-masonry" id="gallery-grid">
+        <div class="gallery-item" data-category="interior">
+          <img src="hero.png" alt="The Hair Shop premium salon interior" loading="lazy" />
+          <div class="gallery-overlay"><div class="gallery-overlay-icon">🔍</div></div>
+        </div>
+        <div class="gallery-item" data-category="styling">
+          <img src="model.png" alt="Stunning curly hair styling" loading="lazy" />
+          <div class="gallery-overlay"><div class="gallery-overlay-icon">🔍</div></div>
+        </div>
+        <div class="gallery-item" data-category="interior">
+          <img src="waiting.png" alt="Comfortable waiting area" loading="lazy" />
+          <div class="gallery-overlay"><div class="gallery-overlay-icon">🔍</div></div>
+        </div>
+        <div class="gallery-item" data-category="colour">
+          <img src="coloring.png" alt="Professional hair colouring service" loading="lazy" />
+          <div class="gallery-overlay"><div class="gallery-overlay-icon">🔍</div></div>
+        </div>
+        <div class="gallery-item" data-category="styling">
+          <img src="before-after.png" alt="Stunning hair transformation before and after" loading="lazy" />
+          <div class="gallery-overlay"><div class="gallery-overlay-icon">🔍</div></div>
+        </div>
+        <div class="gallery-item" data-category="interior">
+          <img src="products.png" alt="Premium hair care products" loading="lazy" />
+          <div class="gallery-overlay"><div class="gallery-overlay-icon">🔍</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" role="dialog" aria-label="Image lightbox">
+    <button id="lightbox-close" aria-label="Close lightbox">✕</button>
+    <img id="lightbox-img" src="" alt="Gallery image" />
+  </div>
+
+  <!-- ===================== REVIEWS ===================== -->
+  <section id="reviews" aria-label="Customer Reviews">
+    <div class="container">
+      <div class="reviews-header reveal">
+        <div class="section-badge">Client Love</div>
+        <h2 class="section-title">What Our Clients <em style="font-style:italic;color:var(--gold-light)">Say</em></h2>
+      </div>
+
+      <div class="rating-showcase reveal">
+        <div class="rating-big">4.5</div>
+        <div class="rating-info">
+          <div class="stars-big">
+            <span>★</span><span>★</span><span>★</span><span>★</span><span>☆</span>
+          </div>
+          <div class="reviews-count">Based on 10 Google Reviews</div>
+          <div style="font-size:12px;color:var(--grey);margin-top:4px;">Highly rated in Biloela, QLD</div>
+        </div>
+      </div>
+
+      <div class="reviews-carousel reveal">
+        <div class="reviews-track" id="reviews-track">
+
+          <div class="review-card">
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">"Absolutely love getting my hair done here. The staff are so friendly and professional. They really listen to what you want and deliver every time. My curly hair has never looked so good!"</p>
+            <div class="reviewer">
+              <div class="reviewer-avatar">S</div>
+              <div>
+                <div class="reviewer-name">Sinclair O.</div>
+                <div class="reviewer-date">October 2022 · Google Review</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">"The Hair Shop is hands down the best salon in Biloela. Clean, modern and the stylists are genuinely talented. I came in for a colour and trim and walked out feeling like a new woman. Highly recommend!"</p>
+            <div class="reviewer">
+              <div class="reviewer-avatar">J</div>
+              <div>
+                <div class="reviewer-name">Jessica M.</div>
+                <div class="reviewer-date">Google Review</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">"Such a lovely experience from start to finish. The salon is beautifully decorated and so welcoming. My stylist was incredibly knowledgeable about my hair type and gave me the best advice. Will definitely be back!"</p>
+            <div class="reviewer">
+              <div class="reviewer-avatar">A</div>
+              <div>
+                <div class="reviewer-name">Amanda T.</div>
+                <div class="reviewer-date">Google Review</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">"Fantastic service and beautiful results. I got a full balayage and treatment and the quality was excellent. The team are so passionate about their work. This is now my go-to salon in Biloela without question."</p>
+            <div class="reviewer">
+              <div class="reviewer-avatar">R</div>
+              <div>
+                <div class="reviewer-name">Rachel B.</div>
+                <div class="reviewer-date">Google Review</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+            <p class="review-text">"Wonderful local salon with a real community feel. The products they use are premium and you can really see and feel the difference. My hair felt incredibly healthy after the treatment. Gorgeous salon too!"</p>
+            <div class="reviewer">
+              <div class="reviewer-avatar">L</div>
+              <div>
+                <div class="reviewer-name">Lauren K.</div>
+                <div class="reviewer-date">Google Review</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>☆</span></div>
+            <p class="review-text">"Really happy with my cut and colour. The stylist took time to understand exactly what I wanted and the end result was spot on. The salon itself is very clean and modern. Great experience overall!"</p>
+            <div class="reviewer">
+              <div class="reviewer-avatar">M</div>
+              <div>
+                <div class="reviewer-name">Michelle D.</div>
+                <div class="reviewer-date">Google Review</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="prev-btn" aria-label="Previous reviews">&#8592;</button>
+        <button class="carousel-btn" id="next-btn" aria-label="Next reviews">&#8594;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TEAM ===================== -->
+  <section id="team" aria-label="Our Team">
+    <div class="container">
+      <div class="team-header reveal">
+        <div class="section-badge">The Experts</div>
+        <h2 class="section-title">Meet Our <em style="font-style:italic;color:var(--gold-light)">Stylists</em></h2>
+        <p class="section-subtitle" style="margin:0 auto;">A passionate team of hair professionals dedicated to bringing your vision to life with skill, creativity and care.</p>
+      </div>
+
+      <div class="team-grid">
+        <div class="team-card reveal">
+          <div class="team-image">
+            <img src="stylist.png" alt="Senior stylist at The Hair Shop" loading="lazy" />
+            <div class="team-image-overlay"></div>
+          </div>
+          <div class="team-info">
+            <h3 class="team-name">Sarah Mitchell</h3>
+            <div class="team-role">Senior Stylist & Colourist</div>
+            <p class="team-bio">With over 10 years of experience, Sarah specialises in creative colour, balayage and curly hair transformations. She's passionate about helping every client feel their most beautiful.</p>
+            <div class="team-social">
+              <a href="#" aria-label="Instagram">📸</a>
+              <a href="#" aria-label="Facebook">📘</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <div class="team-image">
+            <img src="coloring.png" alt="Hair colourist at The Hair Shop" loading="lazy" style="object-position:center top;" />
+            <div class="team-image-overlay"></div>
+          </div>
+          <div class="team-info">
+            <h3 class="team-name">Emma Clarke</h3>
+            <div class="team-role">Colour Specialist</div>
+            <p class="team-bio">Emma's eye for colour and precision blending has made her the go-to for balayage, highlights and bespoke colour work. Every shade she creates is tailored to complement your skin tone.</p>
+            <div class="team-social">
+              <a href="#" aria-label="Instagram">📸</a>
+              <a href="#" aria-label="Facebook">📘</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="team-card reveal">
+          <div class="team-image">
+            <img src="model.png" alt="Stylist at The Hair Shop" loading="lazy" />
+            <div class="team-image-overlay"></div>
+          </div>
+          <div class="team-info">
+            <h3 class="team-name">Jessica Harlow</h3>
+            <div class="team-role">Stylist & Treatment Expert</div>
+            <p class="team-bio">Jessica combines technical precision with a warm, welcoming approach. She specialises in haircuts, treatments, scalp health and creating styles that work effortlessly in everyday life.</p>
+            <div class="team-social">
+              <a href="#" aria-label="Instagram">📸</a>
+              <a href="#" aria-label="Facebook">📘</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== WHY CHOOSE US ===================== -->
+  <section id="why-us" aria-label="Why Choose The Hair Shop">
+    <div class="container">
+      <div class="why-header reveal">
+        <div class="section-badge">Our Promise</div>
+        <h2 class="section-title">Why Choose <em style="font-style:italic;color:var(--gold-light)">Us</em></h2>
+        <p class="section-subtitle" style="margin:0 auto;">We go beyond the haircut. Here's what makes The Hair Shop the most loved salon in Biloela.</p>
+      </div>
+
+      <div class="why-grid">
+
+        <div class="why-card reveal">
+          <span class="why-icon">🏆</span>
+          <h3 class="why-title">Expert Stylists</h3>
+          <p class="why-desc">Our team continuously invests in education and training to stay at the forefront of techniques, trends and hair science.</p>
+        </div>
+
+        <div class="why-card reveal">
+          <span class="why-icon">💎</span>
+          <h3 class="why-title">Premium Products</h3>
+          <p class="why-desc">We use only professional-grade colour and hair care products that deliver superior results while keeping your hair healthy and vibrant.</p>
+        </div>
+
+        <div class="why-card reveal">
+          <span class="why-icon">✨</span>
+          <h3 class="why-title">Spotless Hygiene</h3>
+          <p class="why-desc">A clean, fresh salon environment is our standard. Tools are sterilised between every client and our space is immaculately maintained.</p>
+        </div>
+
+        <div class="why-card reveal">
+          <span class="why-icon">💬</span>
+          <h3 class="why-title">Personalised Consultation</h3>
+          <p class="why-desc">We begin every appointment with a thorough consultation — understanding your hair history, goals and lifestyle before touching a single strand.</p>
+        </div>
+
+        <div class="why-card reveal">
+          <span class="why-icon">🌿</span>
+          <h3 class="why-title">Hair Health First</h3>
+          <p class="why-desc">Beautiful hair starts with healthy hair. We assess your hair's condition and recommend treatments and routines that promote long-term hair vitality.</p>
+        </div>
+
+        <div class="why-card reveal">
+          <span class="why-icon">🤝</span>
+          <h3 class="why-title">Community Salon</h3>
+          <p class="why-desc">We're proudly local. We care about every client personally and love being part of the Biloela community. You're not just a client — you're family.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== BOOKING ===================== -->
+  <section id="booking" aria-label="Book an Appointment">
+    <div class="container">
+      <div class="booking-grid">
+        <div class="booking-info reveal-left">
+          <div class="section-badge">Get in Touch</div>
+          <h2 class="section-title">Book Your <em style="font-style:italic;color:var(--gold-light)">Appointment</em></h2>
+          <div class="divider"></div>
+          <p class="section-subtitle" style="max-width:100%">
+            Ready for a transformation? Reach out to us by phone, WhatsApp or fill in the form and we'll get back to you to confirm your appointment.
+          </p>
+
+          <div class="booking-contacts">
+            <a href="tel:+61749923762" class="contact-item" id="call-contact">
+              <div class="contact-icon">📞</div>
+              <div>
+                <div class="contact-label">Call us directly</div>
+                <div class="contact-value">+61 7 4992 3762</div>
+              </div>
+            </a>
+            <a href="https://wa.me/61749923762" target="_blank" rel="noopener" class="contact-item" id="whatsapp-contact">
+              <div class="contact-icon">💬</div>
+              <div>
+                <div class="contact-label">WhatsApp</div>
+                <div class="contact-value">Message us on WhatsApp</div>
+              </div>
+            </a>
+            <a href="https://maps.google.com/?q=Shop+1/12+Melton+St,+Biloela+QLD+4715" target="_blank" rel="noopener" class="contact-item" id="directions-contact">
+              <div class="contact-icon">📍</div>
+              <div>
+                <div class="contact-label">Our Location</div>
+                <div class="contact-value">Shop 1/12 Melton St, Biloela QLD 4715</div>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="booking-form reveal-right">
+          <h3 class="form-title">Request an Appointment</h3>
+          <p class="form-subtitle">We'll confirm your booking within 24 hours.</p>
+
+          <form id="booking-form" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" name="fname" placeholder="Your first name" required autocomplete="given-name" />
+              </div>
+              <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" name="lname" placeholder="Your last name" required autocomplete="family-name" />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="+61 4XX XXX XXX" required autocomplete="tel" />
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" autocomplete="email" />
+            </div>
+
+            <div class="form-group">
+              <label for="service">Service Required</label>
+              <select id="service" name="service" required>
+                <option value="" disabled selected>Select a service…</option>
+                <option>Haircut & Styling</option>
+                <option>Hair Colour (Full)</option>
+                <option>Balayage / Highlights</option>
+                <option>Hair Treatment</option>
+                <option>Perm / Waves</option>
+                <option>Blow Dry & Finish</option>
+                <option>Bridal / Event Styling</option>
+                <option>Scalp Treatment</option>
+                <option>Kids' Cut</option>
+                <option>Consultation</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="pref-date">Preferred Date</label>
+                <input type="date" id="pref-date" name="pref-date" />
+              </div>
+              <div class="form-group">
+                <label for="pref-time">Preferred Time</label>
+                <select id="pref-time" name="pref-time">
+                  <option value="" disabled selected>Select time…</option>
+                  <option>Morning (9am – 11am)</option>
+                  <option>Midday (11am – 1pm)</option>
+                  <option>Afternoon (1pm – 4pm)</option>
+                  <option>Late (4pm – 6pm)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="notes">Additional Notes</label>
+              <textarea id="notes" name="notes" placeholder="Tell us anything about your hair or what you'd like to achieve…"></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary form-submit" id="submit-btn">
+              ✦ &nbsp;Request Appointment
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== LOCATION ===================== -->
+  <section id="location" aria-label="Our Location">
+    <div class="container">
+      <div class="location-grid">
+        <div class="reveal-left">
+          <div class="section-badge">Find Us</div>
+          <h2 class="section-title">Visit <em style="font-style:italic;color:var(--gold-light)">Us</em></h2>
+          <div class="divider"></div>
+          <p style="font-size:15px;color:var(--grey);line-height:1.8;margin-bottom:8px;">
+            📍 <strong style="color:var(--off-white)">Shop 1/12 Melton Street<br />Biloela, QLD 4715, Australia</strong>
+          </p>
+          <p style="font-size:14px;color:var(--grey);margin-bottom:28px;">Near Drakes Biloela & Commercial Hotel. Plenty of street parking available on Melton Street.</p>
+
+          <div class="hours-table">
+            <div class="hours-row">
+              <span class="day">Monday</span>
+              <span class="time open">9:00 AM – 5:30 PM</span>
+            </div>
+            <div class="hours-row">
+              <span class="day">Tuesday</span>
+              <span class="time open">9:00 AM – 5:30 PM</span>
+            </div>
+            <div class="hours-row">
+              <span class="day">Wednesday</span>
+              <span class="time open">9:00 AM – 5:30 PM</span>
+            </div>
+            <div class="hours-row">
+              <span class="day">Thursday</span>
+              <span class="time open">9:00 AM – 5:30 PM</span>
+            </div>
+            <div class="hours-row today">
+              <span class="day">Friday</span>
+              <span class="time open">9:00 AM – 5:30 PM</span>
+            </div>
+            <div class="hours-row">
+              <span class="day">Saturday</span>
+              <span class="time open">9:00 AM – 2:00 PM</span>
+            </div>
+            <div class="hours-row">
+              <span class="day">Sunday</span>
+              <span class="time closed">Closed</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="map-container reveal-right">
+          <iframe
+            title="The Hair Shop location map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3538.0935406028545!2d150.5095!3d-24.4028!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6beed4327b3a3a2b%3A0x4f90a8b8e7b0a1a1!2sThe%20Hair%20Shop!5e0!3m2!1sen!2sau!4v1700000000000!5m2!1sen!2sau"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FAQ ===================== -->
+  <section id="faq" aria-label="Frequently Asked Questions">
+    <div class="container">
+      <div class="faq-header reveal">
+        <div class="section-badge">FAQ</div>
+        <h2 class="section-title">Common <em style="font-style:italic;color:var(--gold-light)">Questions</em></h2>
+        <p class="section-subtitle" style="margin:0 auto;">Everything you need to know before your visit to The Hair Shop.</p>
+      </div>
+
+      <div class="faq-list" id="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Do I need to book an appointment in advance?
+            <div class="faq-icon">+</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">We strongly recommend booking in advance to secure your preferred time, especially on Fridays and Saturdays. Walk-ins are welcome subject to availability. Call us on +61 7 4992 3762 to check availability or use our booking form above.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            What hair colour services do you offer?
+            <div class="faq-icon">+</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">We offer a full range of colouring services including full tints, root touch-ups, foil highlights, balayage, ombre, toning and colour corrections. Our specialist colourists will assess your hair and create a personalised colour plan just for you.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Do you have experience with curly or wavy hair?
+            <div class="faq-icon">+</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Absolutely! Curly and wavy hair is one of our specialties. We use curl-specific cutting techniques and products that enhance your natural curl pattern rather than fighting it. Bring reference photos and let's create something beautiful together.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            What products do you use and sell?
+            <div class="faq-icon">+</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">We use and retail a curated range of professional-grade hair care products including shampoos, conditioners, treatments, styling products and colour care. Our team will recommend the right products to maintain your results at home.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            How long does a colour appointment take?
+            <div class="faq-icon">+</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Timing varies depending on the service. A root touch-up typically takes 1–1.5 hours, full foil highlights 2–3 hours, and balayage up to 3–4 hours. We always factor in processing time, a treatment and a blowout in your appointment.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Is there parking near The Hair Shop?
+            <div class="faq-icon">+</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Yes! There is ample street parking available on Melton Street directly outside the salon. We're conveniently located near Drakes Biloela and the Commercial Hotel, making us very easy to find in the centre of Biloela.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            Do you offer services for children?
+            <div class="faq-icon">+</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Yes, we love having little ones in the salon! We offer children's cuts in a relaxed, friendly environment. Our stylists are experienced at working with kids to ensure the experience is fun and comfortable for everyone.</div>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            What are your opening hours?
+            <div class="faq-icon">+</div>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">We're open Monday to Friday from 9:00 AM to 5:30 PM and Saturday from 9:00 AM to 2:00 PM. We're closed on Sundays. We recommend calling ahead to book your appointment to ensure we can accommodate your preferred time.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CTA ===================== -->
+  <section id="cta" aria-label="Call to Action">
+    <div class="cta-bg"></div>
+    <div class="container">
+      <div class="cta-content reveal">
+        <div class="section-badge" style="margin:0 auto 28px;">Ready When You Are</div>
+        <h2 class="cta-title">Your Best Hair<br /><em style="font-style:italic;color:var(--gold-light)">Awaits You</em></h2>
+        <p class="cta-subtitle">Step into The Hair Shop and experience the difference that genuine expertise, premium products and heartfelt service can make.</p>
+        <div class="cta-buttons">
+          <a href="#booking" class="btn-primary" id="cta-book-btn">✦ &nbsp;Book Now</a>
+          <a href="tel:+61749923762" class="btn-outline" id="cta-call-btn">📞 &nbsp;+61 7 4992 3762</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer id="footer" aria-label="Footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-logo">The Hair Shop</div>
+          <div class="footer-logo-sub">Biloela · Queensland · Australia</div>
+          <p class="footer-desc">Premium hair salon in the heart of Biloela, QLD. Expert stylists delivering exceptional hair services since day one.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook" title="Facebook">📘</a>
+            <a href="#" aria-label="Instagram" title="Instagram">📸</a>
+            <a href="tel:+61749923762" aria-label="Phone" title="Call us">📞</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-heading">Quick Links</div>
+          <ul class="footer-links">
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#reviews">Reviews</a></li>
+            <li><a href="#team">Our Team</a></li>
+            <li><a href="#booking">Book Now</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-heading">Services</div>
+          <ul class="footer-links">
+            <li><a href="#services">Haircut & Style</a></li>
+            <li><a href="#services">Hair Colour</a></li>
+            <li><a href="#services">Balayage</a></li>
+            <li><a href="#services">Treatments</a></li>
+            <li><a href="#services">Perms & Waves</a></li>
+            <li><a href="#services">Bridal Styling</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-heading">Contact</div>
+          <ul class="footer-links">
+            <li><a href="tel:+61749923762">+61 7 4992 3762</a></li>
+            <li><a href="https://maps.google.com/?q=Shop+1/12+Melton+St,+Biloela+QLD+4715" target="_blank" rel="noopener">Shop 1/12 Melton St</a></li>
+            <li><a href="https://maps.google.com/?q=Shop+1/12+Melton+St,+Biloela+QLD+4715" target="_blank" rel="noopener">Biloela QLD 4715</a></li>
+            <li><a href="#location">Opening Hours</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2024 <span>The Hair Shop</span> · Biloela, QLD · All rights reserved.</p>
+        <p class="footer-copy">Crafted with <span>♥</span> for our community</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button id="back-top" aria-label="Back to top" title="Back to top">↑</button>
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/61749923762" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Chat on WhatsApp" title="WhatsApp us">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- ===================== JAVASCRIPT ===================== -->
+  <script>
+  (function() {
+    'use strict';
+
+    // ===================== LOADER =====================
+    window.addEventListener('load', function() {
+      const loader = document.getElementById('loader');
+      const loaderLogo = loader.querySelector('.loader-logo');
+      const loaderLine = document.getElementById('loader-line');
+      const loaderText = loader.querySelector('.loader-text');
+
+      // Animate logo in
+      setTimeout(() => {
+        loaderLogo.style.transition = 'opacity 0.6s';
+        loaderLogo.style.opacity = '1';
+      }, 100);
+
+      setTimeout(() => {
+        loaderLine.style.width = '200px';
+      }, 400);
+
+      setTimeout(() => {
+        loaderText.style.transition = 'opacity 0.6s';
+        loaderText.style.opacity = '1';
+      }, 800);
+
+      // Fade out loader
+      setTimeout(() => {
+        loader.style.transition = 'opacity 0.8s ease';
+        loader.style.opacity = '0';
+        setTimeout(() => {
+          loader.style.display = 'none';
+          initAnimations();
+        }, 800);
+      }, 2200);
+    });
+
+    // ===================== PARTICLES =====================
+    function initParticles() {
+      const canvas = document.getElementById('particles');
+      const ctx = canvas.getContext('2d');
+      let particles = [];
+      const PARTICLE_COUNT = 60;
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+
+      resize();
+      window.addEventListener('resize', resize);
+
+      class Particle {
+        constructor() { this.reset(); }
+        reset() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height;
+          this.size = Math.random() * 1.5 + 0.3;
+          this.speedX = (Math.random() - 0.5) * 0.3;
+          this.speedY = (Math.random() - 0.5) * 0.3;
+          this.opacity = Math.random() * 0.4 + 0.05;
+          this.opacityDir = Math.random() > 0.5 ? 0.003 : -0.003;
+        }
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          this.opacity += this.opacityDir;
+          if (this.opacity > 0.45 || this.opacity < 0.03) this.opacityDir *= -1;
+          if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+        }
+        draw() {
+          ctx.save();
+          ctx.globalAlpha = this.opacity;
+          ctx.fillStyle = '#274335';
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    initParticles();
+
+    // ===================== NAVBAR =====================
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 60) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }, { passive: true });
+
+    // ===================== HAMBURGER =====================
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let menuOpen = false;
+
+    hamburger.addEventListener('click', function() {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('open', menuOpen);
+      hamburger.setAttribute('aria-expanded', menuOpen);
+      document.body.style.overflow = menuOpen ? 'hidden' : '';
+    });
+
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', function() {
+        menuOpen = false;
+        mobileMenu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // ===================== SCROLL PROGRESS =====================
+    const progressBar = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', function() {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = window.scrollY / docHeight;
+      progressBar.style.transform = `scaleX(${scrolled})`;
+    }, { passive: true });
+
+    // ===================== BACK TO TOP =====================
+    const backTop = document.getElementById('back-top');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 600) {
+        backTop.classList.add('visible');
+      } else {
+        backTop.classList.remove('visible');
+      }
+    }, { passive: true });
+    backTop.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ===================== ANIMATIONS =====================
+    function initAnimations() {
+      if (typeof gsap === 'undefined') return;
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // Hero animations
+      gsap.to('#hero-badge', { opacity: 1, y: 0, duration: 0.8, delay: 0.3, ease: 'power3.out' });
+      gsap.to('#hero-title', { opacity: 1, y: 0, duration: 1, delay: 0.6, ease: 'power3.out' });
+      gsap.to('#hero-subtitle', { opacity: 1, y: 0, duration: 0.8, delay: 0.9, ease: 'power3.out' });
+      gsap.to('#hero-buttons', { opacity: 1, y: 0, duration: 0.8, delay: 1.1, ease: 'power3.out' });
+      gsap.to('#scroll-indicator', { opacity: 1, duration: 0.8, delay: 1.6 });
+
+      // Hero parallax
+      gsap.to('#hero-img', {
+        yPercent: 20,
+        ease: 'none',
+        scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
+      });
+
+      // Reveal animations
+      gsap.utils.toArray('.reveal').forEach((el, i) => {
+        gsap.fromTo(el,
+          { opacity: 0, y: 50 },
+          {
+            opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+            delay: 0
+          }
+        );
+      });
+
+      gsap.utils.toArray('.reveal-left').forEach(el => {
+        gsap.fromTo(el,
+          { opacity: 0, x: -50 },
+          { opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 85%', once: true } }
+        );
+      });
+
+      gsap.utils.toArray('.reveal-right').forEach(el => {
+        gsap.fromTo(el,
+          { opacity: 0, x: 50 },
+          { opacity: 1, x: 0, duration: 1, ease: 'power3.out',
+            scrollTrigger: { trigger: el, start: 'top 85%', once: true } }
+        );
+      });
+
+      // Service cards stagger
+      gsap.utils.toArray('.service-card').forEach((card, i) => {
+        gsap.fromTo(card,
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+            scrollTrigger: { trigger: card, start: 'top 90%', once: true },
+            delay: (i % 3) * 0.1 }
+        );
+      });
+
+      // Why cards stagger
+      gsap.utils.toArray('.why-card').forEach((card, i) => {
+        gsap.fromTo(card,
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+            scrollTrigger: { trigger: card, start: 'top 90%', once: true },
+            delay: (i % 3) * 0.12 }
+        );
+      });
+
+      // Team cards
+      gsap.utils.toArray('.team-card').forEach((card, i) => {
+        gsap.fromTo(card,
+          { opacity: 0, y: 40 },
+          { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+            scrollTrigger: { trigger: card, start: 'top 88%', once: true },
+            delay: i * 0.15 }
+        );
+      });
+    }
+
+    // ===================== COUNTERS =====================
+    function animateCounters() {
+      const counters = document.querySelectorAll('.counter');
+      counters.forEach(counter => {
+        const target = parseInt(counter.dataset.target);
+        const suffix = counter.dataset.suffix || '+';
+        let current = 0;
+        const increment = target / 60;
+        const timer = setInterval(() => {
+          current += increment;
+          if (current >= target) {
+            counter.textContent = target + suffix;
+            clearInterval(timer);
+          } else {
+            counter.textContent = Math.floor(current) + suffix;
+          }
+        }, 25);
+      });
+    }
+
+    // Trigger counters on scroll
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateCounters();
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+      observer.observe(aboutSection);
+    }
+
+    // ===================== GALLERY =====================
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        const filter = this.dataset.filter;
+
+        galleryItems.forEach(item => {
+          if (filter === 'all' || item.dataset.category === filter) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    // Lightbox
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    galleryItems.forEach(item => {
+      item.addEventListener('click', function() {
+        const img = this.querySelector('img');
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    // ===================== REVIEWS CAROUSEL =====================
+    const track = document.getElementById('reviews-track');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    let currentSlide = 0;
+
+    function getVisibleCards() {
+      if (window.innerWidth < 768) return 1;
+      if (window.innerWidth < 1024) return 2;
+      return 3;
+    }
+
+    function updateCarousel() {
+      const visible = getVisibleCards();
+      const cards = track.querySelectorAll('.review-card');
+      const maxSlide = Math.max(0, cards.length - visible);
+      currentSlide = Math.min(currentSlide, maxSlide);
+
+      const cardWidth = cards[0] ? cards[0].offsetWidth + 24 : 0;
+      track.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
+    }
+
+    prevBtn.addEventListener('click', function() {
+      if (currentSlide > 0) currentSlide--;
+      updateCarousel();
+    });
+
+    nextBtn.addEventListener('click', function() {
+      const visible = getVisibleCards();
+      const cards = track.querySelectorAll('.review-card');
+      const maxSlide = Math.max(0, cards.length - visible);
+      if (currentSlide < maxSlide) currentSlide++;
+      updateCarousel();
+    });
+
+    window.addEventListener('resize', updateCarousel);
+
+    // Auto-advance carousel
+    setInterval(function() {
+      const visible = getVisibleCards();
+      const cards = track.querySelectorAll('.review-card');
+      const maxSlide = Math.max(0, cards.length - visible);
+      currentSlide = currentSlide >= maxSlide ? 0 : currentSlide + 1;
+      updateCarousel();
+    }, 5000);
+
+    // ===================== FAQ =====================
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const question = item.querySelector('.faq-question');
+      const answer = item.querySelector('.faq-answer');
+
+      question.addEventListener('click', function() {
+        const isOpen = item.classList.contains('open');
+
+        // Close all
+        faqItems.forEach(fi => {
+          fi.classList.remove('open');
+          fi.querySelector('.faq-answer').style.maxHeight = '0';
+          fi.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+        });
+
+        if (!isOpen) {
+          item.classList.add('open');
+          answer.style.maxHeight = answer.scrollHeight + 40 + 'px';
+          question.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // ===================== FORM =====================
+    const bookingForm = document.getElementById('booking-form');
+    bookingForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('submit-btn');
+      btn.textContent = '✓  Request Sent!';
+      btn.style.background = '#4caf7d';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        btn.innerHTML = '✦ &nbsp;Request Appointment';
+        btn.style.background = '';
+        btn.disabled = false;
+        bookingForm.reset();
+      }, 4000);
+    });
+
+    // ===================== TODAY HIGHLIGHT =====================
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const today = days[new Date().getDay()];
+    const rows = document.querySelectorAll('.hours-row');
+    rows.forEach(row => {
+      const dayEl = row.querySelector('.day');
+      if (dayEl && dayEl.textContent.trim() === today) {
+        rows.forEach(r => r.classList.remove('today'));
+        row.classList.add('today');
+      }
+    });
+
+    // ===================== SMOOTH ANCHOR =====================
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href').substring(1);
+        const target = document.getElementById(targetId);
+        if (target) {
+          e.preventDefault();
+          const offsetTop = target.offsetTop - 80;
+          window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        }
+      });
+    });
+
+  })();
+  </script>
+
+</body>
+</html>
